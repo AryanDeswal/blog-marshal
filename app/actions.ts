@@ -7,7 +7,10 @@ import { redirect } from "next/navigation";
 export async function handleSubmission(formData: FormData) {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
-
+    
+    if (!user) {
+        return redirect("/");
+    }
     const title = formData.get("title");
     const content = formData.get("content");
     const url = formData.get("url");
